@@ -1,5 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import ApolloClientProvider from "./apollo-provider";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,7 +24,24 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <ApolloClientProvider>
+          {/* Navbar */}
+          <div className="w-full h-16 bg-gray-800 text-white flex items-center px-5">
+            <Link href="/" className="text-lg font-semibold">
+              GraphQL Blog App
+            </Link>
+            <div className="ml-auto">
+              <Link href="/auth/login" className="mr-4 hover:underline">
+                Login
+              </Link>
+              <Link href="/auth/register" className="hover:underline">
+                Register
+              </Link>
+            </div>
+          </div>
+          {/* Main Content */}
+          {children}
+        </ApolloClientProvider>
       </body>
     </html>
   );
